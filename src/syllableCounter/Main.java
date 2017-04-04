@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 /**
- * 
+ * Main class to run the syllableCounter Program. 
  * @author Sathira Kittisukmongkol
  */
 public class Main {

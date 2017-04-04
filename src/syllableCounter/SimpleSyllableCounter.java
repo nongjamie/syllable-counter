@@ -1,11 +1,16 @@
 package syllableCounter;
 
 /**
- * 
+ * Count syllable and vowels by countSyllables method that designed with simple non-OO approach(enum for states).
  * @author Sathira Kittisukmongkol
  */
 public class SimpleSyllableCounter extends WordCounterSS {
 	
+	/**
+	 * Count the syllables of the input word.
+	 * @param word , word that we will count.
+	 * @return the number of syllable of that word.
+	 */
 	int countSyllables( String word ) {
 		word = word.toLowerCase().trim();
 		int syllables = 0;

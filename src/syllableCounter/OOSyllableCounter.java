@@ -1,11 +1,16 @@
 package syllableCounter;
 
 /**
- * 
+ * Count syllable and vowels by countSyllables method that designed with O-O style.
  * @author Sathira Kittisukmongkol
  */
 public class OOSyllableCounter extends WordCounterOO {
 
+	/**
+	 * Count the syllables of the input word.
+	 * @param word , word that we will count.
+	 * @return the number of syllable of that word.
+	 */
 	int countSyllables( String word ) {
 		word = word.toLowerCase().trim();
 		syllableCount = 0;
