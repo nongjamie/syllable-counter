@@ -1,5 +1,9 @@
 package syllableCounter;
 
+/**
+ * 
+ * @author Sathira Kittisukmongkol
+ */
 public enum State {
 
 	START,

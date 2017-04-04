@@ -7,6 +7,7 @@ import java.io.*;
 /**
  * Test the countSyllables method using some test words
  * read from a file.
+ * @author Sathira Kittisukmongkol
  */
 public class WordCounterTest {
 	

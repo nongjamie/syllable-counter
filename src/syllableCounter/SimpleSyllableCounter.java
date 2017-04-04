@@ -1,15 +1,15 @@
 package syllableCounter;
 
-public class SimpleSyllableCounter {
-	//---------------------------------------------------------------------------------
-	private State state;
-	char[] vowelOrY = { 'a' , 'e' , 'i' , 'o' , 'u' , 'y' };
-	char[] vowel = { 'a' , 'e' , 'i' , 'o' , 'u' };
-	char[] consonant = { 'b' , 'c' , 'd' , 'f' , 'g' , 'h' , 'j' , 'k' , 'l' , 'm' , 'n' , 'p' , 'q' , 'r' , 's' , 't' , 'v' , 'w' , 'x' , 'y' , 'z' };
-	//---------------------------------------------------------------------------------
+/**
+ * 
+ * @author Sathira Kittisukmongkol
+ */
+public class SimpleSyllableCounter extends WordCounterSS {
+	
 	int countSyllables( String word ) {
 		word = word.toLowerCase().trim();
 		int syllables = 0;
+		boolean lastCharIsE = false;
 		State state = State.START; // State is an enum of the states 
 		for( int k=0 ; k<word.length() ; k++ ) {
 			char c = word.charAt( k );
@@ -36,6 +36,11 @@ public class SimpleSyllableCounter {
 				if( isVowel(c) ) {
 					if( c=='e' && k==word.length()-1 && syllables!=0){
 						state = State.CONSONANT;
+					}
+					else if( c=='e' && k!=word.length()-1 && syllables!=0){
+						lastCharIsE = true;
+						state = State.SINGLEVOWEL;
+						syllables++;
 					}
 					else{
 						state = State.SINGLEVOWEL;
@@ -73,7 +78,12 @@ public class SimpleSyllableCounter {
 				else if( isLetter(c) ) {
 					state = State.CONSONANT;
 				}
-				else if( c=='-' && (k!=word.length()-1)) {
+				else if( c=='-' && (k!=word.length()-1) && lastCharIsE==true ) {
+					syllables = syllables - 1 ;
+					state = State.HYPHEN;
+					lastCharIsE = false;
+				}
+				else if( c=='-' && (k!=word.length()-1) && lastCharIsE==false) {
 					state = State.HYPHEN;
 				}
 				else if( c=='-' && (k==word.length()-1)) {
@@ -141,82 +151,5 @@ public class SimpleSyllableCounter {
 		}
 		return syllables;
 	}
-	//			currentLetter = word.charAt(k);
-	//			if( currentLetter == '\'' ) { 
-	//				// ignore apostrophe switch(state)
-	//				continue;
-	//			}
-	//			else if( isVowelOrY( currentLetter ) ) {
-	//				state = State.VOWEL;
-	//			}
-	//			else if( isLetter( currentLetter ) ) {
-	//				state = State.CONSONANT;
-	//			}
-	//			else {
-	//				state = State.NONWORD;
-	//			}
-	//			switch( state ) {
-	//			// process character c using state machine 
-	//			case CONSONANT:
-	//				if ( isVowelOrY(c) ) { 
-	//					state = State.SINGLEVOWEL; 
-	//					syllables++; 
-	//				}
-	//				else if ( isLetter(c) ) {
-	//					/* stay in consonant state */
-	//				}
-	//				else if ( c == '-' ) {
-	//					state = State.HYPHEN ;
-	//				}
-	//				else {
-	//					state = State.NONWORD;
-	//				}
-	//				break;
-	//			case VOWEL:
-	//				if ( isVowel( c ) ) {
-	//					state = State.MULTIVOWEL;
-	//				}
-	//				else {
-	//					//TODO
-	//				}
-	//				break;
-	//			case NONWORD:
-	//				break;
-	//			default:
-	//				break;
-	//				//TODO other cases
-	//			}
-	//		}
-	//	}
-	// end of loop for chars in word
-	// End of word: Correct syllable count for the "final e" rule.
-	// You only need the current state and current letter to do this
-	//---------------------------------------------------------------------------------
-	public boolean isVowelOrY( char c ) {
-		for( char x : vowelOrY ) {
-			if( c == x ) {
-				return true;
-			}
-		}
-		return false;
-	}
 
-	public boolean isLetter( char c ) {
-		for( char x : consonant ) {
-			if( x == c ) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean isVowel( char c ) {
-		for( char x : vowel ) {
-			if( x == c ) {
-				return true;
-			}
-		}
-		return false;
-	}
-	//---------------------------------------------------------------------------------
 }
