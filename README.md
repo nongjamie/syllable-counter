@@ -1,3 +1,3 @@
-#LabWeek9 : Syllable Counter using a State Machine
+# LabWeek9 : Syllable Counter using a State Machine
 
-##Author : Sathira Kittisukmongkol
+## Author : Sathira Kittisukmongkol
